@@ -98,8 +98,9 @@
 					<tr>
 						<th>Notas</th>
 						<th>Hora</th>
-						<th>Operacion</th>
+						<th>Tercero</th>
 						<th>Responsable</th>
+						<th>Operacion</th>
 
 
 					</tr>

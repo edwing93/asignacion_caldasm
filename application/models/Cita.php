@@ -65,7 +65,7 @@ class Cita extends CI_Model {
 	}
 
 	public function buscar_cita($dato){
-		$this->db->where('codigo',$dato);
+		$this->db->where('Id_cita',$dato);
 		$this->db->from('cita');
 		$query = $this->db->get();
 		return $query->result_array();
@@ -81,6 +81,13 @@ class Cita extends CI_Model {
 	public function listar_proximas($dato){
   		$this->db->from('cita');
 			$this->db->where('Fecha_inicial <',$dato);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function nombre_operacion($dato){
+			$this->db->from('operaciones');
+			$this->db->where('Id_operacion',$dato);
 			$query = $this->db->get();
 			return $query->result_array();
 		}

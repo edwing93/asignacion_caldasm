@@ -52,10 +52,16 @@ class Consultas_ajax extends CI_Controller {
 		$operaciones=$this->Cita->buscar_operaciones($codigo);
 
 		foreach ($consulta as $valor) {
-
 		echo "<td>".$valor['Notas']."</td>";
 		echo "<td>".$valor['Hora_inicial']."</td>";
-		echo "<td>".$valor['Nit_tercero']."</td>";
+		echo "<td>".$valor['Terceros_Nit']."</td>";
+		echo "<td>".$valor['Nombres_responsable']."</td>";
+			foreach ($operaciones as $dato) {
+				$nombre=$this->Cita->nombre_operacion($operaciones['Operaciones_Id_operacion']);
+				foreach($nombre as $nombre_op){
+						echo "<td>".$nombre_op['Descripcion']."</td>";
+				};
+	};
 		};
 
 	}
