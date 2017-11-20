@@ -91,5 +91,8 @@ class Op_usuarios extends CI_Controller {
 	 public function ver_tercero(){
 		 $this->load->view('usuario/consulta_tercero');
 	 }
+	 public function ver_vehiculo(){
+		 $this->load->view('usuario/consulta_vehiculo');
+	 }
 
 }

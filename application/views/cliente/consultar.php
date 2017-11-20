@@ -54,7 +54,9 @@
 		<span class="help-block text-muted small-font" >  Placa</span>
     <input type="text" class="form-control" name="placa"readonly  value="<?php echo $valor['Vehiculos_Placa'];?>">
   </div>
+	<?php if($valor["Estado"]=="Pendiente"){ ?>
 	<input type="submit" class="btn btn-danger" value="Cancelar cita"></input>
+<?php }; ?>
   </div>
 
 	</form>

@@ -42,6 +42,19 @@ class Vehiculos extends CI_Model {
 		return $query->result_array();
 	}
 
+	public function traer_propietario($dato){
+		$this->db->where('Nit',$dato);
+		$this->db->from('terceros');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function buscar_placa($dato){
+		$this->db->where('Placa',$dato);
+		$this->db->from('Vehiculos');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
 
 
 

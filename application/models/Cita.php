@@ -12,7 +12,8 @@ class Cita extends CI_Model {
 		$campos=array(
 			'Sedes_Id'=>$datos['sede1'],
 			'Terceros_Nit'=>$datos['nit1'],
-			'Vehiculos_Placa'=>$datos['placa1']
+			'Vehiculos_Placa'=>$datos['placa1'],
+			'Estado'=>"Pendiente"
 		);
 		return $this->db->insert('cita',$campos);
 	}
@@ -35,7 +36,8 @@ class Cita extends CI_Model {
 
 	public function cancelar($dato) {
 		$this->db->where('Id_cita', $dato);
-		return $this->db->delete('cita');
+		$cancela=array('Estado'=>"Cancelada");
+		return $this->db->update('cita',$cancela);
 	}
 	public function cancelar_relacion($dato) {
 		$this->db->where('Cita_Id_cita', $dato);
@@ -62,4 +64,30 @@ class Cita extends CI_Model {
 		}
 	}
 
+	public function buscar_cita($dato){
+		$this->db->where('codigo',$dato);
+		$this->db->from('cita');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function buscar_operaciones($dato){
+		$this->db->from('cita_tiene_operaciones');
+		$this->db->where('Cita_Id_cita',$dato);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function listar_proximas($dato){
+  		$this->db->from('cita');
+			$this->db->where('Fecha_inicial <',$dato);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function listar(){
+			$this->db->from('cita');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
 }
