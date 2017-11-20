@@ -17,7 +17,7 @@ class Op_Cliente extends CI_Controller {
 		$filtro['placa']= $this->Vehiculos->listar_filtro($this->session->userdata('Nit'));
 		$filtro['sede']= $this->Sedes->listar();
 		$this->load->view('cliente/menu',$filtro);
-		
+
 	}
 
 ////////////////////////////////////////////////////////   -----CLIENTES---------////////////////////////////////
@@ -213,10 +213,10 @@ public function actualizar(){
 
 	}
 	public function geteventos(){
-		$r=$this->cita->geteventos();
+		$r=$this->cita->geteventos($this->session->userdata('Nit'));
 		echo json_encode($r);
 	}
-	
+
 	public function upevent(){
 		$param['id'] = $this->input->post('id');
 		$param['fecin'] = $this->input->post('fecin');
@@ -225,17 +225,12 @@ public function actualizar(){
 		echo $r;
 	}
 	public function asignar(){
-		$datos['nit1']= 1088307124;
-		$datos['sede1']= '120';
-		$datos['placa1']= 'LYC777';
-		$datos['km'] = $this->input->post('km');
-		$datos['fecha']= $this->input->post('fecha');
-		$datos['hora']= $this->input->post('hora');
-		$datos['opera']= $this->input->post('opera');
-		$datos['notas']= $this->input->post('notas');
-		$datos['resp']= $this->input->post('resp');
-		
-		$res=$this->cita->crear_cita($datos);
+		$datos['nit1']=  $this->input->post('nit');
+		$datos['sede1']= $this->input->post('sede');
+		$datos['placa1'] = $this->input->post('placa');
+
+
+		$res=$this->Cita->crear_cita($datos);
 		echo $res;
 	}
 

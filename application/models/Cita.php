@@ -41,8 +41,9 @@ class Cita extends CI_Model {
 		$this->db->where('Cita_Id_cita', $dato);
 		return $this->db->delete('cita_tiene_operaciones');
 	}
-	public function geteventos(){
+	public function geteventos($dato){
 		$this->db->select('Id_cita id,Vehiculos_placa title,Fecha_inicial start,Fecha_final end');
+		$this->db->where('Terceros_Nit',$dato);
 		$this->db->from('cita');
 		return $this->db->get()->result();
 	}
@@ -53,7 +54,7 @@ class Cita extends CI_Model {
 		);
 		$this->db->where('Id_cita',$param['id']);
 		$this->db->update('cita',$campos);
-		
+
 		if($this->db->affected_rows() == 1){
 			return 1;
 		}else{

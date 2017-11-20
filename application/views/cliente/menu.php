@@ -26,9 +26,9 @@
 	$(document).ready(function(){
 		$.post('Op_Cliente/geteventos',
 			function(data){
-			
-		
-		
+
+
+
 		$('#calendar').fullCalendar({
 			header: {
 				left: 'prev,next today',
@@ -41,10 +41,10 @@
 				eventLimit: true, // allow "more" link when too many events
 				events: $.parseJSON(data),
 				eventDrop: function(event,delta,revertFunc){
-					var id=event.id;
 					var fein=event.start.format();
+					var id=event.id;
 					var fefi=event.end.format();
-					
+
 					if(!confirm("¿Esta seguro de cambiar la fecha?")){
 					   revertFunc();
 					   }else{
@@ -61,7 +61,7 @@
 								alert('Error');
 							}
 						});
-					
+
 					}
 				},
 				dayClick: function(date,jsEvent,view){
@@ -118,14 +118,14 @@
         <h2 class="modal-title">Asignar</h2>
       </div>
       <div class="modal-body">
-		<form action="Op_Cliente/asignar" id="registrar" method="post">	
-				<input type="text" class="form-control" id="nit" value="<?php  foreach($nit as $usuario){ echo $usuario['Nit'];  };  ?>" readonly></br>
-				<select class="form-control" id="sede">
+		<form action="Op_Cliente/asignar" id="registrar" method="post">
+				<input type="text" class="form-control" id="nit" name="nit" value="<?php  foreach($nit as $usuario){ echo $usuario['Nit'];  };  ?>" readonly></br>
+				<select class="form-control" id="sede" name="sede">
 					<?php foreach($sede as $dato){ ?>
 					<option value="<?php echo $dato['Id'];?>">  <?php echo $dato['Nombre'];?>  </option>
 					<?php }; ?>
 				</select></br>
-				<select class="form-control" id="placa">
+				<select class="form-control" id="placa" name="placa">
 					<?php foreach($placa as $dato){ ?>
 					<option value="<?php echo $dato['Placa'];?>">  <?php echo $dato['Placa'];?>  </option>
 					<?php }; ?>
@@ -139,27 +139,15 @@
 				</select></br>
 				<textarea maxlength="200" class="form-control" placeholder="Adicional" id="notas"></textarea></br>
 				<input  type="text" class="form-control" id="responsable"placeholder="Persona Responsable del Vehiculo">
-			
-	
+
+
 
       </div>
       <div class="modal-footer">
-        <button id="enviar">Aceptar</button>
+        <input id="enviar" type="submit" class="btn btn-success" value="Aceptar"></input>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
       </form>
-<script>
-	$('#enviar').click(function(){
-		var ni=$('#nit').val();
-		var sed=$('#sede').val();
-		var plac=$('#placa').val();
-		.post("<?=base_url()?>Op_Cliente/asignar",{
-			  nit1:ni,
-			  sede1:sed,
-			  placa1:plac
-		})
-	});
-</script>
 
 <?php } else {
 
