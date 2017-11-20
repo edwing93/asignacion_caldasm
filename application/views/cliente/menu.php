@@ -118,7 +118,7 @@
         <h2 class="modal-title">Asignar</h2>
       </div>
       <div class="modal-body">
-		<form action="asignar" id="registrar" method="post">	
+		<form action="Op_Cliente/asignar" id="registrar" method="post">	
 				<input type="text" class="form-control" id="nit" value="<?php  foreach($nit as $usuario){ echo $usuario['Nit'];  };  ?>" readonly></br>
 				<select class="form-control" id="sede">
 					<?php foreach($sede as $dato){ ?>
@@ -144,11 +144,22 @@
 
       </div>
       <div class="modal-footer">
-        <input type="submit" class="btn btn-success" value="Aceptar">
+        <button id="enviar">Aceptar</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
       </form>
-
+<script>
+	$('#enviar').click(function(){
+		var ni=$('#nit').val();
+		var sed=$('#sede').val();
+		var plac=$('#placa').val();
+		.post("<?=base_url()?>Op_Cliente/asignar",{
+			  nit1:ni,
+			  sede1:sed,
+			  placa1:plac
+		})
+	});
+</script>
 
 <?php } else {
 

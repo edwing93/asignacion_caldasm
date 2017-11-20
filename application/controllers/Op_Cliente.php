@@ -13,7 +13,9 @@ class Op_Cliente extends CI_Controller {
 		$this->load->model('Terceros');
 		$this->load->model('Cita');
 		$filtro['nit']= $this->Terceros->filtro($this->session->userdata('Nit'));
-		$this->load->helper('url');
+		$filtro['conjunto']= $this->Operaciones->listar();
+		$filtro['placa']= $this->Vehiculos->listar_filtro($this->session->userdata('Nit'));
+		$filtro['sede']= $this->Sedes->listar();
 		$this->load->view('cliente/menu',$filtro);
 		
 	}
@@ -223,9 +225,9 @@ public function actualizar(){
 		echo $r;
 	}
 	public function asignar(){
-		$datos['nit']= $this->input->post('nit');
-		$datos['sede']= $this->input->post('sede');
-		$datos['placa']= $this->input->post('placa');
+		$datos['nit1']= 1088307124;
+		$datos['sede1']= '120';
+		$datos['placa1']= 'LYC777';
 		$datos['km'] = $this->input->post('km');
 		$datos['fecha']= $this->input->post('fecha');
 		$datos['hora']= $this->input->post('hora');

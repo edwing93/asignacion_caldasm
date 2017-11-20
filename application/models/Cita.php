@@ -9,10 +9,10 @@ class Cita extends CI_Model {
 
 
 	public function crear_cita($datos){
-		$campos = array(
-			'Sedes_Id'=>$datos['sede'],
-			'Terceros_Nit'=>$datos['nit'],
-			'Vehiculos_Placa'=>$datos['placa']
+		$campos=array(
+			'Sedes_Id'=>$datos['sede1'],
+			'Terceros_Nit'=>$datos['nit1'],
+			'Vehiculos_Placa'=>$datos['placa1']
 		);
 		return $this->db->insert('cita',$campos);
 	}
