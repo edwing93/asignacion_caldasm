@@ -61,7 +61,11 @@
 								alert('Error');
 							}
 						});
+					
 					}
+				},
+				dayClick: function(date,jsEvent,view){
+					$('#asignar').modal();
 				}
 			});
 		});
@@ -106,6 +110,44 @@
 		<div id="calendar"></div>
     </div>
   </div>
+<!--formulario de agendamiento-->
+ <div class="modal" id="asignar" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Asignar</h2>
+      </div>
+      <div class="modal-body">
+		<form action="asignar" id="registrar" method="post">	
+				<input type="text" class="form-control" id="nit" value="<?php  foreach($nit as $usuario){ echo $usuario['Nit'];  };  ?>" readonly></br>
+				<select class="form-control" id="sede">
+					<?php foreach($sede as $dato){ ?>
+					<option value="<?php echo $dato['Id'];?>">  <?php echo $dato['Nombre'];?>  </option>
+					<?php }; ?>
+				</select></br>
+				<select class="form-control" id="placa">
+					<?php foreach($placa as $dato){ ?>
+					<option value="<?php echo $dato['Placa'];?>">  <?php echo $dato['Placa'];?>  </option>
+					<?php }; ?>
+				</select></br>
+				<input  type="text" class="form-control" id="km" placeholder="Ingrese el kilometraje"></br>
+				<input  type="time" class="form-control" id="hora"></br>
+				<select class="form-control" id="operacion">
+					<?php foreach($conjunto as $op){ ?>
+					<option value="<?php echo $op['Id_operacion'];?>">  <?php echo $op['Descripcion'];?> </option>
+					<?php }; ?>
+				</select></br>
+				<textarea maxlength="200" class="form-control" placeholder="Adicional" id="notas"></textarea></br>
+				<input  type="text" class="form-control" id="responsable"placeholder="Persona Responsable del Vehiculo">
+			
+	
+
+      </div>
+      <div class="modal-footer">
+        <input type="submit" class="btn btn-success" value="Aceptar">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+      </div>
+      </form>
 
 
 <?php } else {

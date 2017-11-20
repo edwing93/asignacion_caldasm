@@ -222,5 +222,19 @@ public function actualizar(){
 		$r = $this->cita->upevent($param);
 		echo $r;
 	}
+	public function asignar(){
+		$datos['nit']= $this->input->post('nit');
+		$datos['sede']= $this->input->post('sede');
+		$datos['placa']= $this->input->post('placa');
+		$datos['km'] = $this->input->post('km');
+		$datos['fecha']= $this->input->post('fecha');
+		$datos['hora']= $this->input->post('hora');
+		$datos['opera']= $this->input->post('opera');
+		$datos['notas']= $this->input->post('notas');
+		$datos['resp']= $this->input->post('resp');
+		
+		$res=$this->cita->crear_cita($datos);
+		echo $res;
+	}
 
 }
