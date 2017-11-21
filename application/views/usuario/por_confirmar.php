@@ -16,9 +16,9 @@
 $(document).ready(function(){
 
 
-	$("#confirmar").click(function(){
-		var confirmar= "confirmar_cita";
-		 $("#form").attr("action",confirmar);
+
+ $('#aplazar').click(function(){
+	 $('#fecha').modal();
  });
 
 
@@ -51,7 +51,7 @@ $(document).ready(function(){
 		</thead>
 		<tbody>
 	<?php foreach($proximas as $valor){ ?>
-<form class="form-inline" action="#" method="post" id="form">
+<form class="form-inline" action="confirmar_cita" method="post" id="form">
 			<tr>
 
 				<td><input type="text" id="id" name="id" class="form-control" readonly value="<?php echo $valor['Id_cita'];?>"></td>
@@ -67,24 +67,57 @@ $(document).ready(function(){
 				<button type="submit" class="btn btn-success" id="confirmar">
 					<span class="glyphicon glyphicon-ok"></span>
 				</button>
+				</form>
 				<button type="submit" class="btn btn-info" id="aplazar">
 					<span class="glyphicon glyphicon-transfer"></span>
 				</button>
- </div>
+ 			</div>
 
 				</td>
 			</tr>
-</form>
-			<?php }; ?>
-		</tbody>
-	</table>
-</div>
+			<!-- Ventana Emergente para Aplazar -->
+			<div class="modal" id="fecha" tabindex="-1" role="dialog">
+			 <div class="modal-dialog" role="document">
+			   <div class="modal-content">
+			     <div class="modal-header">
+			       <h2 class="modal-title">Aplazar Cita</h2>
+			     </div>
+			     <div class="modal-body">
+			   <div class="container">
+			     <form class="form-inline" action="aplazar_cita" method="post">
+			       <div class="form-group">
+							<label>Cita</label> <input type="text" id="id" name="id" class="form-control" readonly value="<?php echo $valor['Id_cita'];?>">
+			         <label>Fecha</label>
+			         <input type="date" class="form-control" name="fecini"></input>
+			       </div>
+			   </div>
+			     </div>
+			     <div class="modal-footer">
+			       <input id="enviar" type="submit" class="btn btn-success" value="Aceptar"></input>
+			       <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+			     </div>
+			     </form>
+				 	</div>
+				</div>
+			</div>
+
+
+			<!-- Ventana Emergente para Aplazar -->
+
+
+		<?php }; ?>
+				</tbody>
+			</table>
+		</div>
+
+	</div>
+
+
+	</div>
 
 
 
 
-</div>
-</div>
 
 
 

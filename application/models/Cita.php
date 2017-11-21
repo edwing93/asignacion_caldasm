@@ -79,9 +79,7 @@ class Cita extends CI_Model {
 	}
 
 	public function por_confirmar(){
-  		$this->db->from('cita');
-			$this->db->where('Estado',"Pendiente");
-			$query = $this->db->get();
+  		$query=$this->db->query('SELECT * FROM cita WHERE Estado="Pendiente" OR Estado="Aplazada"');
 			return $query->result_array();
 		}
 
@@ -121,5 +119,11 @@ class Cita extends CI_Model {
 			$this->db->where('Id_cita',$dato);
 			$combo=array('Estado'=>"Finalizada");
 			return $this->db->update('cita',$combo);
+		}
+
+		public function aplazar($codigo,$fecha){
+			$this->db->where('Id_cita',$codigo);
+			$combo=array('Fecha_inicial'=>$fecha,'Fecha_final'=>$fecha,'Estado'=>"Aplazada");
+			$this->db->update('cita',$combo);
 		}
 }

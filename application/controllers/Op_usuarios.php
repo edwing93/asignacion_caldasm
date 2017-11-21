@@ -83,6 +83,13 @@ class Op_usuarios extends CI_Controller {
 			redirect('Op_usuarios/confirmadas');
 	 }
 
+	 public function aplazar_cita(){
+		 $id=$this->input->post('id');
+		 $fecha=$this->input->post('fecini');
+		 $this->Cita->aplazar($id,$fecha);
+		 redirect('Op_usuarios/gestion_citas');
+	 }
+
 	 ////////////////////////////// Tecnicos  /////////////////////
 	 public function ver_tecnicos(){
 		 $dato["tecnicos"]=$this->Operarios->listar();
