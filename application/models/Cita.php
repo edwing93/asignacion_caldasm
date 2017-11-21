@@ -78,9 +78,16 @@ class Cita extends CI_Model {
 		return $query->result_array();
 	}
 
-	public function listar_proximas($dato){
+	public function por_confirmar(){
   		$this->db->from('cita');
-			$this->db->where('Fecha_inicial <',$dato);
+			$this->db->where('Estado',"Pendiente");
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function citas_confirmadas(){
+			$this->db->from('cita');
+			$this->db->where('Estado',"Confirmada");
 			$query = $this->db->get();
 			return $query->result_array();
 		}
@@ -96,5 +103,23 @@ class Cita extends CI_Model {
 			$this->db->from('cita');
 			$query = $this->db->get();
 			return $query->result_array();
+		}
+
+		public function rango_citas_canceladas($fecha_inicial,$fecha_final){
+			$rta=$this->db->query("SELECT * FROM cita WHERE Fecha_inicial BETWEEN '$fecha_inicial' AND '$fecha_final'");
+
+			return $rta	->result_array();
+		}
+
+		public function confirmar($dato){
+			$this->db->where('Id_cita',$dato);
+			$combo=array('Estado'=>"Confirmada");
+			return $this->db->update('cita',$combo);
+		}
+
+		public function concluir_cita($dato){
+			$this->db->where('Id_cita',$dato);
+			$combo=array('Estado'=>"Finalizada");
+			return $this->db->update('cita',$combo);
 		}
 }

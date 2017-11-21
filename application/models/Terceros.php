@@ -28,4 +28,11 @@ class Terceros extends CI_Model {
 	public function crear_cliente($dato){
 		return $this->db->insert('terceros',$dato);
 	}
+
+	public function traer_nombre($dato){
+		$this->db->where('Nit',$dato);
+		$this->db->from('Terceros');
+		$rta= $this->db->get();
+		return $rta->result_array();
+	}
 }

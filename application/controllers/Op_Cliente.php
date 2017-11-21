@@ -99,7 +99,8 @@ public function actualizar(){
 
 	$this->Terceros->actualizar_datos($nit,$dat);
 	$this->Login_terceros->actualizar_datos($nit,$login_terceros);
-
+		redirect('Op_cliente');
+		echo '<script>alert("juas");</script>';
 }
 
 
@@ -231,7 +232,7 @@ public function actualizar(){
 
 
 		$res=$this->Cita->crear_cita($datos);
-		echo $res;
+		redirect('Op_cliente');
 	}
 
 }

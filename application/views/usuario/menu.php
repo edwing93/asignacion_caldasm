@@ -30,7 +30,7 @@
         <li><a href="Op_usuarios/gestion_citas">Gestionar Citas</a></li>
         <li><a href="#">Agendar Cita</a></li>
         <li><a href="Op_usuarios/consultas">Consultas</a></li>
-        <li><a href="#"  >Gestionar Informes</a>   </li>
+        <li><a href="Op_usuarios/informes_view"  >Gestionar Informes</a>   </li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">

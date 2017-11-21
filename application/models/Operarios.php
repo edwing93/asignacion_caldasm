@@ -17,4 +17,8 @@ class Operarios extends CI_Model {
 		return $this->db->insert('operarios',$dato);
 	}
 
+	public function cambiar_estado($cedula,$dato){
+		$this->db->where('Cedula',$cedula);
+		return $this->db->update('operarios',$dato);
+	}
 }

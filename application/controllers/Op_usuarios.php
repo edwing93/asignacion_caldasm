@@ -57,16 +57,31 @@ class Op_usuarios extends CI_Controller {
 		 $this->load->view('usuario/gestion_citas');
 	 }
 
-	 public function proximas(){
-		 $hoy = date("ymd");
-		 $dato["proximas"]=$this->Cita->listar_proximas($hoy);
-		 $this->load->view('usuario/proximas_citas',$dato);
+	 public function pendientes(){
+		 $dato["proximas"]=$this->Cita->por_confirmar();
+		 $this->load->view('usuario/por_confirmar',$dato);
 	 }
 	 public function historico(){
 		 $dato["todas"]=$this->Cita->listar();
 		 $this->load->view('usuario/historico',$dato);
 	 }
 
+	 public function confirmar_cita(){
+		  $id=$this->input->post('id');
+			$this->Cita->confirmar($id);
+			redirect('Op_usuarios/pendientes');
+	 }
+
+	 public function confirmadas(){
+		 $dato["confirmadas"]=$this->Cita->citas_confirmadas();
+		$this->load->view('usuario/confirmadas',$dato);
+	 }
+
+	 public function finalizar(){
+		  $id=$this->input->post('id');
+			$this->Cita->concluir_cita($id);
+			redirect('Op_usuarios/confirmadas');
+	 }
 
 	 ////////////////////////////// Tecnicos  /////////////////////
 	 public function ver_tecnicos(){
@@ -80,8 +95,22 @@ class Op_usuarios extends CI_Controller {
 		 $combo= array('Cedula'=>$cedula, 'Nombres'=>$nombre, 'Estado'=> "Activo");
 		 $this->Operarios->agregar($combo);
 		 redirect('Op_usuarios/ver_tecnicos');
-
 	 }
+
+	public function cambiar_estado_tecnico(){
+		$estado=$this->input->post("estado");
+		$cedula=$this->input->post("cedula");
+
+		if($estado=="Activo"){
+			$combo=array('Estado'=>"Inactivo");
+			$this->Operarios->cambiar_estado($cedula,$combo);
+			redirect('Op_usuarios/ver_tecnicos');
+		}else{
+			$combo=array('Estado'=>'Activo');
+			$this->Operarios->cambiar_estado($cedula,$combo);
+			redirect('Op_usuarios/ver_tecnicos');
+		}
+	}
 
 	 ///////////////////////// CONSULTAS /////////////////////
 	 public function consultas(){
@@ -93,6 +122,17 @@ class Op_usuarios extends CI_Controller {
 	 }
 	 public function ver_vehiculo(){
 		 $this->load->view('usuario/consulta_vehiculo');
+	 }
+		//////////////////////////////////////////////  INFORMES //////////////////////////////////
+	 public function informes_view(){
+		 $this->load->view('usuario/informes_view');
+	 }
+
+	 public function info_canceladas(){
+		 $fecha_inicial=$this->input->post('fecini');
+		 $fecha_final=$this->input->post('fecfin');
+		 $datos["resultado"]=$this->Cita->rango_citas_canceladas($fecha_final,$fecha_final);
+		 $this->load->view('usuario/inf_citas_canceladas',$datos);
 	 }
 
 }

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -26,47 +26,61 @@
 	<form action="<?=base_url()?>index.php/Op_cliente"><input type="submit" id="volver" class="btn btn-danger" value="Regresar"></input></form>
 
 
-<?php foreach($consulta as $valor){ ?>
 
-<div class="container text-center">
-	<div style="padding-top:30px" class="panel-body" >
-	  <div class="row">
-	<form class="form-inline" role="form" action="cancela" method="post">
-  <div class="form-group">
-    <span class="help-block text-muted small-font" >  Codigo</span>
-    <input type="text" class="form-control" name="id" readonly value="<?php echo $valor['Id_cita'];?>">
+
+  <div class="container">
+
+  	<div class="panel panel-default">
+
+  	  <div class="panel-heading">Proximas Citas</div>
+
+  	  <table class="table table-striped">
+  			<thead>
+  			<tr>
+  				<th>Codigo</th>
+  				<th>Fecha</th>
+  				<th>Km</th>
+  				<th>Notas</th>
+  				<th>Estado</th>
+  				<th>Placa</th>
+  				<th>Acciones</th>
+  			</tr>
+  		</thead>
+  		<tbody>
+  	<?php foreach($consulta as $valor){ ?>
+  <form class="form-inline" action="cancela" method="post" id="form">
+  			<tr>
+
+  				<td><input type="text" id="id" name="id" class="form-control" readonly value="<?php echo $valor['Id_cita'];?>"></td>
+  				<td><input type="text" name="fecha" class="form-control" readonly value="<?php echo $valor['Fecha_inicial'];?>"></td>
+  				<td><input type="text" name="km" class="form-control" readonly value="<?php echo $valor['Kilometraje'];?>"></td>
+  				<td><input type="text" name="notas" class="form-control" readonly value="<?php echo $valor['Notas'];?>"></td>
+  				<td><input type="text" name="estado" class="form-control" readonly value="<?php echo $valor['Estado'];?>"></td>
+  				<td><input type="text" name="placa" class="form-control" readonly value="<?php echo $valor['Vehiculos_Placa'];?>"></td>
+
+  				<td>
+  	<div class="btn-toolbar" role="toolbar">
+        <?php if($valor['Estado']=="Pendiente"){?>
+        <div class="btn-group">
+  				<button type="submit" class="btn btn-danger" id="confirmar">
+  					<span class="glyphicon glyphicon-remove"></span>
+  				</button>
+
+        </div>
+      <?php };  ?>
+  				</td>
+  			</tr>
+  </form>
+  			<?php }; ?>
+  		</tbody>
+  	</table>
   </div>
-  <div class="form-group">
-    <span class="help-block text-muted small-font" >  Fecha</span>
-    <input type="text" class="form-control" name="fecha"readonly value="<?php echo $valor['Fecha_inicial'];?>">
+
+
+
+
   </div>
-  <div class="form-group">
-    <span class="help-block text-muted small-font" >  Km</span>
-    <input type="text" class="form-control" name="km"readonly value="<?php echo $valor['Kilometraje'];?>">
   </div>
-  <div class="form-group">
-
-		<span class="help-block text-muted small-font" >  Estado</span>
-    <input type="text" class="form-control" name="estado"readonly  value="<?php echo $valor['Estado'];?>">
-  </div>
-  <div class="form-group">
-
-		<span class="help-block text-muted small-font" >  Placa</span>
-    <input type="text" class="form-control" name="placa"readonly  value="<?php echo $valor['Vehiculos_Placa'];?>">
-  </div>
-	<?php if($valor["Estado"]=="Pendiente"){ ?>
-	<input type="submit" class="btn btn-danger" value="Cancelar cita"></input>
-<?php }; ?>
-  </div>
-
-	</form>
-	</div>
-	</div>
-
-
-
-
-<?php }; ?>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<?=base_url()?>assets/js/jquery-1.11.3.min.js"></script>
 

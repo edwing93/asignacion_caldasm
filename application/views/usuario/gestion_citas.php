@@ -29,8 +29,9 @@
 	<div class="container">
 
 		<a href="historico"><button type="button" class="btn btn-info btn-lg btn-block">Historico de Citas</button></a>
-		<a href="proximas"><button type="button" class="btn btn-default btn-lg btn-block">Proximas Citas</button></a>
-		
+		<a href="pendientes"><button type="button" class="btn btn-default btn-lg btn-block">Por Confirmar</button></a>
+    <a href="confirmadas"><button type="button" class="btn btn-info btn-lg btn-block">Finalizar Citas</button></a>
+
 
 
 </div>

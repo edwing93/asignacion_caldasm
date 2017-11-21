@@ -76,26 +76,25 @@
 		<?php	foreach($tecnicos as $valor){ ?>
 
       <tr>
-				<form class="form-inline">
+				<form class="form-inline" action="cambiar_estado_tecnico" method="post">
 					  <div class="form-group">
-        <td><input type="text" name="cedula" id="cedula" class="form-control" value="<?php echo $valor['Cedula']; ?>"></input></td>
-        <td><input type="text" name="nombres" id="nombres"class="form-control" value="<?php echo $valor['Nombres']; ?>"></input></td>
-        <td><select name="estado" class="form-control">
-						<option value="<?php echo $valor['Estado']; ?>"><?php echo $valor['Estado']; ?></option>
-						<option value="Inactivo">Inactivo</option>
-					</select>
+        <td><input type="text" name="cedula" id="cedula" class="form-control" value="<?php echo $valor['Cedula']; ?>" readonly></input></td>
+        <td><input type="text" name="nombres" id="nombres"class="form-control" value="<?php echo $valor['Nombres']; ?>" readonly></input></td>
+        <td><input type="text" name="estado" class="form-control"value="<?php echo $valor['Estado']; ?>" readonly></td>
 				</td>
 
         <td>
-					          <div class="btn-toolbar" role="toolbar">
+					   <div class="btn-toolbar" role="toolbar">
 					  <div class="btn-group">
-					    <button type="button" class="btn btn-warning" alt="Editar">
-					      <span class="glyphicon glyphicon-pencil"></span>
+					    <button type="submit" class="
+							<?php if($valor['Estado']=="Activo"){echo "btn btn-danger";}else{echo "btn btn-success";};?>" alt="Editar">
+					      <span class="
+					    <?php if($valor['Estado']=="Activo"){echo "glyphicon glyphicon-pause";}else{echo " glyphicon glyphicon-ok";};?>
+
+					      glyphicon glyphicon-pencil"></span>
 					    </button>
 
-					    <button type="button" class="btn btn-danger">
-					      <span class="glyphicon glyphicon-remove"></span>
-					    </button>
+
 					 </div>
 					 </div>
 

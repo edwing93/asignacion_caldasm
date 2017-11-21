@@ -26,6 +26,7 @@ class Consultas_ajax extends CI_Controller {
 
 
 		};
+		echo "<button>Este</button>";
 	}
 
 
@@ -41,28 +42,13 @@ class Consultas_ajax extends CI_Controller {
 		echo "<td>".$valor['Descripcion']."</td>";
 		echo "<td>".$valor['Modelo']."</td>";
 		echo "<td>".$valor['Nit_tercero']."</td>";
-
+		$nombre=$this->Terceros->traer_nombre($valor['Nit_tercero']);
+		foreach ($nombre as $dato) {
+			echo "<td>".$dato['Nombres']."</td>";
+			};
 		};
 
 	}
 
-	public function ir_cita(){
-		$codigo=$this->input->post("codigo");
-		$consulta=$this->Cita->buscar_cita($codigo);
-		$operaciones=$this->Cita->buscar_operaciones($codigo);
-
-		foreach ($consulta as $valor) {
-		echo "<td>".$valor['Notas']."</td>";
-		echo "<td>".$valor['Hora_inicial']."</td>";
-		echo "<td>".$valor['Terceros_Nit']."</td>";
-		echo "<td>".$valor['Nombres_responsable']."</td>";
-			foreach ($operaciones as $dato) {
-				$nombre=$this->Cita->nombre_operacion($operaciones['Operaciones_Id_operacion']);
-				foreach($nombre as $nombre_op){
-						echo "<td>".$nombre_op['Descripcion']."</td>";
-				};
-	};
-		};
-
-	}
+	
 }
