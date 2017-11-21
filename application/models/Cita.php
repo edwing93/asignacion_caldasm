@@ -154,7 +154,7 @@ class Cita extends CI_Model {
 			$this->db->where('Id_cita',$codigo);
 			$combo=array('Fecha_inicial'=>$fecha,'Fecha_final'=>$fecha,'Estado'=>"Aplazada");
 			$this->db->update('cita',$combo);
-
+}
 		public function cancel($parametro){
 			$campo=array('Estado'=>"Cancelado");
 			$this->db->where('Id_cita',$parametro['id']);

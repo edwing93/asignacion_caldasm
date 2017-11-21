@@ -59,6 +59,7 @@ class Op_usuarios extends CI_Controller {
 
 	 public function pendientes(){
 		 $dato["proximas"]=$this->Cita->por_confirmar();
+		 $dato["tecnicos"]=$this->Usuarios->tecnicos();
 		 $this->load->view('usuario/por_confirmar',$dato);
 	 }
 	 public function historico(){
@@ -68,7 +69,8 @@ class Op_usuarios extends CI_Controller {
 
 	 public function confirmar_cita(){
 		  $id=$this->input->post('id');
-			$this->Cita->confirmar($id);
+		  $tecnico=$this->input->post('operario');
+			$this->Cita->confirmar($id,$tecnico);
 			redirect('Op_usuarios/pendientes');
 	 }
 

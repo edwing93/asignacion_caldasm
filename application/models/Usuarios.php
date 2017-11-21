@@ -28,4 +28,10 @@ class Usuarios extends CI_Model {
 	public function crear_cliente($dato){
 		return $this->db->insert('terceros',$dato);
 	}
+
+	public function tecnicos(){
+			$this->db->from('operarios');
+			$rta= $this->db->get();
+			return $rta->result_array();
+	}
 }

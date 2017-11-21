@@ -46,6 +46,7 @@ $(document).ready(function(){
 				<th>Notas</th>
 				<th>Estado</th>
 				<th>Placa</th>
+				<th>Tecnico</th>
 				<th>Acciones</th>
 			</tr>
 		</thead>
@@ -61,6 +62,11 @@ $(document).ready(function(){
 				<td><input type="text" name="estado" class="form-control" readonly value="<?php echo $valor['Estado'];?>"></td>
 				<td><input type="text" name="placa" class="form-control" readonly value="<?php echo $valor['Vehiculos_Placa'];?>"></td>
 
+        <td><select name="operario" class="form-control"><?php foreach ($tecnicos as $value) {?>
+          <option value="<?php echo $value['Cedula'];?>"><?php echo $value['Nombres'];?></option>
+
+      <?php }; ?>
+      </select></td>
 				<td>
 	<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group">
