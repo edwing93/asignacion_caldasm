@@ -15,13 +15,13 @@
 <script>
 	$(document).ready(function(){
 		$("#buscar").click(function(){
-			var nit = $('#nit').val();
+			var placa = $('#placa').val();
 
-			var param={"nit":nit};
+			var param={"placa":placa};
 
 			$.ajax({
 				data:param,
-				url: '<?=base_url()?>index.php/Consultas_ajax/terceros',
+				url: '<?=base_url()?>index.php/Consultas_ajax/vehiculos',
 				type:'post',
 				beforeSend:function(){
 					$('#resultado').html("procesando");
@@ -44,7 +44,7 @@
     <div class="row">
       <div class="col-sm-6 col-md-4 col-md-offset-4">
 		<div class="form-group">
-      <input type="text" class="form-control" placeholder="Digite el Nit" id="nit"></input>
+      <input type="text" class="form-control" placeholder="Digite la Placa del Vehiculo" id="placa"></input>
     </div>
       <div class="form-group">
 		      <button  id="buscar" class="btn btn-primary btn-lg btn-block">Buscar</button>
@@ -58,12 +58,12 @@
 <table class="table table-striped">
 		<thead>
 		<tr>
-			<th>Nombres</th>
-			<th>Fecha de Nacimiento</th>
-			<th>Direccion</th>
-			<th>Telefono</th>
-			<th>Telefono</th>
-			<th>Correo</th>
+			<th>Descripcion</th>
+			<th>Modelo</th>
+			<th>Nit Propietario</th>
+			<th>Propietario</th>
+
+
 		</tr>
 	</thead>
 	<tbody>

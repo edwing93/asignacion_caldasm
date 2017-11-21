@@ -11,14 +11,28 @@
 <!-- Bootstrap -->
 <link href="<?=base_url()?>assets/css/bootstrap.css" rel="stylesheet">
 
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
+<script>
+	$(document).ready(function(){
+		$("#buscar").click(function(){
+			var codigo = $('#id').val();
 
+			var param={"codigo":codigo};
+
+			$.ajax({
+				data:param,
+				url: '<?=base_url()?>index.php/Consultas_ajax/ir_cita',
+				type:'post',
+				beforeSend:function(){
+					$('#resultado').html("procesando");
+				},
+				success:function(response){
+					$("#resultado").html(response);
+				}
+			});
+		});
+	});
+</script>
 
 
 <body>
@@ -34,7 +48,7 @@
 	  <table class="table table-striped">
 			<thead>
 			<tr>
-				<th>Codigio</th>
+				<th>Codigo</th>
 				<th>Fecha</th>
 				<th>Km</th>
 				<th>Estado</th>
@@ -44,26 +58,26 @@
 		</thead>
 		<tbody>
 	<?php foreach($proximas as $valor){ ?>
-		<form method="post">
+
 			<tr>
 
-				<td><input type="text" name="id" class="form-control" readonly value="<?php echo $valor['Id_cita'];?>"></td>
-				<td><input type="text" name="id" class="form-control" readonly value="<?php echo $valor['Fecha_inicial'];?>"></td>
-				<td><input type="text" name="id" class="form-control" readonly value="<?php echo $valor['Kilometraje'];?>"></td>
-				<td><input type="text" name="id" class="form-control" readonly value="<?php echo $valor['Estado'];?>"></td>
-				<td><input type="text" name="id" class="form-control" readonly value="<?php echo $valor['Vehiculos_Placa'];?>"></td>
+				<td><input type="text" id="id" name="id" class="form-control" readonly value="<?php echo $valor['Id_cita'];?>"></td>
+				<td><input type="text" name="fecha" class="form-control" readonly value="<?php echo $valor['Fecha_inicial'];?>"></td>
+				<td><input type="text" name="km" class="form-control" readonly value="<?php echo $valor['Kilometraje'];?>"></td>
+				<td><input type="text" name="estado" class="form-control" readonly value="<?php echo $valor['Estado'];?>"></td>
+				<td><input type="text" name="placa" class="form-control" readonly value="<?php echo $valor['Vehiculos_Placa'];?>"></td>
 
 				<td>
 	<div class="btn-toolbar" role="toolbar">
 			<div class="btn-group">
-				<button type="submit" class="btn btn-primary btn-lg active" name="ir">
+				<button type="submit" class="btn btn-primary btn-lg active" id="buscar">
 					<span class="glyphicon glyphicon-circle-arrow-right">    Ir</span>
 				</button>
  </div>
 
 				</td>
 			</tr>
-			</form>
+
 			<?php }; ?>
 		</tbody>
 	</table>
@@ -74,12 +88,43 @@
 
 </div>
 
+		<div>
+			<div class="panel panel-default">
 
-<?php
-if(isset($_POST["ir"])){
-	echo "<h1> Aqui va AJAX & JSON</h1>";
-}
- ?>
+
+
+				<table class="table table-striped">
+					<thead>
+					<tr>
+						<th>Notas</th>
+						<th>Hora</th>
+						<th>Tercero</th>
+						<th>Responsable</th>
+						<th>Operacion</th>
+
+
+					</tr>
+				</thead>
+				<tbody>
+
+
+					<tr id="resultado">
+
+
+
+					</tr>
+
+
+				</tbody>
+			</table>
+
+		</div>
+		</div>
+
+</div>
+
+
+
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<?=base_url()?>assets/js/jquery-1.11.3.min.js"></script>

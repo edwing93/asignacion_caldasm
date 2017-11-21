@@ -29,9 +29,9 @@
 	<div class="container">
 
 		<a href="ver_tercero"><button type="button" class="btn btn-warning btn-lg btn-block">Consultar Terceros</button></a>
-		<a href="#"><button type="button" class="btn btn-default btn-lg btn-block">Consultar Vehiculos</button></a>
+		<a href="ver_vehiculo"><button type="button" class="btn btn-default btn-lg btn-block">Consultar Vehiculos</button></a>
 		<a href="ver_tecnicos"><button type="button" class="btn btn-warning btn-lg btn-block">Consultar Tecnicos</button></a>
-		<a href="#"><button type="button" class="btn btn-default btn-lg btn-block">Consultar Operarios</button></a>
+		<a href="#"><button type="button" class="btn btn-default btn-lg btn-block">Consultar Usuario</button></a>
 
 
 

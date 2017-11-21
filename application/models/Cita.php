@@ -45,6 +45,7 @@ class Cita extends CI_Model {
 	public function cancelar($dato) {
 		$this->db->where('Id_cita', $dato);
 		return $this->db->delete('cita');
+		$cancela=array('Estado'=>"Cancelada");
 	}
 	public function cancelar_relacion($dato) {
 		$this->db->where('Cita_Id_cita', $dato);
