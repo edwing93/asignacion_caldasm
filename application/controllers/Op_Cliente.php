@@ -16,6 +16,7 @@ class Op_Cliente extends CI_Controller {
 		$filtro['conjunto']= $this->Operaciones->listar();
 		$filtro['placa']= $this->Vehiculos->listar_filtro($this->session->userdata('Nit'));
 		$filtro['sede']= $this->Sedes->listar();
+		$filtro['cita']= $this->Cita->traer_ultimo();
 		$this->load->view('cliente/menu',$filtro);
 
 	}
@@ -226,13 +227,30 @@ public function actualizar(){
 		echo $r;
 	}
 	public function asignar(){
-		$datos['nit1']=  $this->input->post('nit');
-		$datos['sede1']= $this->input->post('sede');
-		$datos['placa1'] = $this->input->post('placa');
+		$datos['ultimo']= $this->input->post('ultimo');
+		$datos['nit']=  $this->input->post('nit');
+		$datos['sede']= $this->input->post('sede');
+		$datos['placa'] = $this->input->post('placa');
+		$datos['km'] = $this->input->post('km');
+		$datos['fecha']=$this->input->post('fecha');
+		$datos['hora'] = $this->input->post('hora');
+		$datos['notas'] = $this->input->post('notas');
+		$datos['responsable'] = $this->input->post('responsable');
+		$datos['estado']='Pendiente';
+		$datos['fec']=$this->input->post('fec');
+		$datos['operario']=4289;
+		$datos['operacion']=$this->input->post('operacion');
 
+		$this->Cita->crear_cita($datos);
+		$this->cita->crear_cita_relacion($datos);
+		redirect('Op_Cliente');
 
-		$res=$this->Cita->crear_cita($datos);
-		redirect('Op_cliente');
+	}
+
+	public function cancel(){
+		$parametro['id']=$this->input->post('id');
+		$res=$this->cita->cancel($parametro);
+		echo $res;
 	}
 
 }

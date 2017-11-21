@@ -9,17 +9,44 @@ class Cita extends CI_Model {
 
 
 	public function crear_cita($datos){
+		$fecha = date($datos['fecha']);
+		$nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
+		$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+
+		echo $nuevafecha;
 		$campos=array(
-			'Sedes_Id'=>$datos['sede1'],
-			'Terceros_Nit'=>$datos['nit1'],
-			'Vehiculos_Placa'=>$datos['placa1'],
-			'Estado'=>"Pendiente"
+
+			'Kilometraje'=>$datos['km'],
+			'Estado'=>$datos['estado'],
+			'Notas'=>$datos['notas'],
+			'Fecha_inicial'=>$datos['fecha'],
+			'Hora_inicial'=>$datos['hora'],
+			'Nombres_responsable'=>$datos['responsable'],
+			'Sedes_Id'=>$datos['sede'],
+			'Terceros_Nit'=>$datos['nit'],
+			'Vehiculos_Placa'=>$datos['placa'],
+			'Sedes_Id'=>$datos['sede'],
+			'Terceros_Nit'=>$datos['nit'],
+			'Vehiculos_Placa'=>$datos['placa'],
+			'Estado'=>$datos['estado'],
+			'Fecha_final'=>$nuevafecha,
+			'Hora_final'=>$datos['hora']
+
+
 		);
+
 		return $this->db->insert('cita',$campos);
+
 	}
 
-	public function crear_cita_relacion($relacion){
-				return $this->db->insert('cita_tiene_operaciones',$relacion);
+	public function crear_cita_relacion($datos){
+		$operacion=array(
+			'Estado_operacion'=>$datos['estado'],
+			'Operarios_Cedula'=>$datos['operario'],
+			'Cita_Id_cita'=>$datos['ultimo'],
+			'Operaciones_Id_operacion'=>$datos['operacion']
+		);
+				return $this->db->insert('cita_tiene_operaciones',$operacion);
 	}
 
 	public function traer_ultimo(){
@@ -46,6 +73,7 @@ class Cita extends CI_Model {
 	public function geteventos($dato){
 		$this->db->select('Id_cita id,Vehiculos_placa title,Fecha_inicial start,Fecha_final end');
 		$this->db->where('Terceros_Nit',$dato);
+		$this->db->where('Estado',"Asignado");
 		$this->db->from('cita');
 		return $this->db->get()->result();
 	}
@@ -103,6 +131,7 @@ class Cita extends CI_Model {
 			return $query->result_array();
 		}
 
+
 		public function rango_citas_canceladas($fecha_inicial,$fecha_final){
 			$rta=$this->db->query("SELECT * FROM cita WHERE Fecha_inicial BETWEEN '$fecha_inicial' AND '$fecha_final'");
 
@@ -125,5 +154,16 @@ class Cita extends CI_Model {
 			$this->db->where('Id_cita',$codigo);
 			$combo=array('Fecha_inicial'=>$fecha,'Fecha_final'=>$fecha,'Estado'=>"Aplazada");
 			$this->db->update('cita',$combo);
+
+		public function cancel($parametro){
+			$campo=array('Estado'=>"Cancelado");
+			$this->db->where('Id_cita',$parametro['id']);
+			$this->db->update('cita',$campo);
+			if($this->db->affected_rows() == 1){
+				return 1;
+			}else{
+				return 0;
+			}
+
 		}
 }
