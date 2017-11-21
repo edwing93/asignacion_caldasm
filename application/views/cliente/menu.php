@@ -65,9 +65,22 @@
 					}
 				},
 				dayClick: function(date,jsEvent,view){
-					
 					$('#asignar').modal();
-					
+				},
+				eventClick: function(event,jsEvent,view){
+					var id=event.id;
+					if(!confirm("¿Desea cancelar la cita?")){
+						revertFunc;
+					}else{
+						$.post('Op_Cliente/cancel',{id:id},
+						function(data){
+						if(data==1){
+							alert('La cita ha sido cancelada');
+						}else{
+							alert('Error');
+						}
+					});
+ 					}
 				}
 			});
 		});
@@ -109,6 +122,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
+    
 		<div id="calendar"></div>
     </div>
   </div>
@@ -122,6 +136,7 @@
       <div class="modal-body">
 		<form action="Op_Cliente/asignar" id="registrar" method="post">
 				<div id="fecha_inicial"></div>
+				<input type="hidden" class="form-control" name="ultimo" value="<?php  foreach($cita as $dato){ echo $dato['Id_cita']+1;  };  ?>" readonly>
 				<input type="text" class="form-control" id="nit" name="nit" value="<?php  foreach($nit as $usuario){ echo $usuario['Nit'];  };  ?>" readonly></br>
 				<select class="form-control" id="sede" name="sede">
 					<?php foreach($sede as $dato){ ?>
@@ -152,6 +167,9 @@
         <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
       </div>
       </form>
+    </div>
+  </div>
+</div>
 
 <?php } else {
 

@@ -9,7 +9,13 @@ class Cita extends CI_Model {
 
 
 	public function crear_cita($datos){
+		$fecha = date($datos['fecha']);
+		$nuevafecha = strtotime ( '+1 day' , strtotime ( $fecha ) ) ;
+		$nuevafecha = date ( 'Y-m-j' , $nuevafecha );
+ 
+		echo $nuevafecha;
 		$campos=array(
+
 			'Kilometraje'=>$datos['km'],
 			'Estado'=>$datos['estado'],
 			'Notas'=>$datos['notas'],
@@ -18,16 +24,29 @@ class Cita extends CI_Model {
 			'Nombres_responsable'=>$datos['responsable'],
 			'Sedes_Id'=>$datos['sede'],
 			'Terceros_Nit'=>$datos['nit'],
-			'Vehiculos_Placa'=>$datos['placa']
+			'Vehiculos_Placa'=>$datos['placa'],
+			'Sedes_Id'=>$datos['sede'],
+			'Terceros_Nit'=>$datos['nit'],
+			'Vehiculos_Placa'=>$datos['placa'],
+			'Estado'=>$datos['estado'],
+			'Fecha_final'=>$nuevafecha,
+			'Hora_final'=>$datos['hora']
 			
+
 		);
-	
+		
 		return $this->db->insert('cita',$campos);
 		
 	}
 
-	public function crear_cita_relacion($relacion){
-				return $this->db->insert('cita_tiene_operaciones',$relacion);
+	public function crear_cita_relacion($datos){
+		$operacion=array(
+			'Estado_operacion'=>$datos['estado'],
+			'Operarios_Cedula'=>$datos['operario'],
+			'Cita_Id_cita'=>$datos['ultimo'],
+			'Operaciones_Id_operacion'=>$datos['operacion']
+		);
+				return $this->db->insert('cita_tiene_operaciones',$operacion);
 	}
 
 	public function traer_ultimo(){
@@ -44,8 +63,8 @@ class Cita extends CI_Model {
 
 	public function cancelar($dato) {
 		$this->db->where('Id_cita', $dato);
-		return $this->db->delete('cita');
 		$cancela=array('Estado'=>"Cancelada");
+		return $this->db->update('cita',$cancela);
 	}
 	public function cancelar_relacion($dato) {
 		$this->db->where('Cita_Id_cita', $dato);
@@ -54,6 +73,7 @@ class Cita extends CI_Model {
 	public function geteventos($dato){
 		$this->db->select('Id_cita id,Vehiculos_placa title,Fecha_inicial start,Fecha_final end');
 		$this->db->where('Terceros_Nit',$dato);
+		$this->db->where('Estado',"Asignado");
 		$this->db->from('cita');
 		return $this->db->get()->result();
 	}
@@ -72,4 +92,47 @@ class Cita extends CI_Model {
 		}
 	}
 
+	public function buscar_cita($dato){
+		$this->db->where('Id_cita',$dato);
+		$this->db->from('cita');
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function buscar_operaciones($dato){
+		$this->db->from('cita_tiene_operaciones');
+		$this->db->where('Cita_Id_cita',$dato);
+		$query = $this->db->get();
+		return $query->result_array();
+	}
+
+	public function listar_proximas($dato){
+  		$this->db->from('cita');
+			$this->db->where('Fecha_inicial <',$dato);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function nombre_operacion($dato){
+			$this->db->from('operaciones');
+			$this->db->where('Id_operacion',$dato);
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+
+		public function listar(){
+			$this->db->from('cita');
+			$query = $this->db->get();
+			return $query->result_array();
+		}
+		public function cancel($parametro){
+			$campo=array('Estado'=>"Cancelado");
+			$this->db->where('Id_cita',$parametro['id']);
+			$this->db->update('cita',$campo);
+			if($this->db->affected_rows() == 1){
+				return 1;
+			}else{
+				return 0;
+			}
+		}
 }
