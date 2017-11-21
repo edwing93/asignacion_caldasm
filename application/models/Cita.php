@@ -10,11 +10,20 @@ class Cita extends CI_Model {
 
 	public function crear_cita($datos){
 		$campos=array(
-			'Sedes_Id'=>$datos['sede1'],
-			'Terceros_Nit'=>$datos['nit1'],
-			'Vehiculos_Placa'=>$datos['placa1']
+			'Kilometraje'=>$datos['km'],
+			'Estado'=>$datos['estado'],
+			'Notas'=>$datos['notas'],
+			'Fecha_inicial'=>$datos['fecha'],
+			'Hora_inicial'=>$datos['hora'],
+			'Nombres_responsable'=>$datos['responsable'],
+			'Sedes_Id'=>$datos['sede'],
+			'Terceros_Nit'=>$datos['nit'],
+			'Vehiculos_Placa'=>$datos['placa']
+			
 		);
+	
 		return $this->db->insert('cita',$campos);
+		
 	}
 
 	public function crear_cita_relacion($relacion){

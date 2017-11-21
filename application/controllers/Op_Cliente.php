@@ -225,13 +225,21 @@ public function actualizar(){
 		echo $r;
 	}
 	public function asignar(){
-		$datos['nit1']=  $this->input->post('nit');
-		$datos['sede1']= $this->input->post('sede');
-		$datos['placa1'] = $this->input->post('placa');
-
-
-		$res=$this->Cita->crear_cita($datos);
-		echo $res;
+		$datos['nit']=  $this->input->post('nit');
+		$datos['sede']= $this->input->post('sede');
+		$datos['placa'] = $this->input->post('placa');
+		$datos['km'] = $this->input->post('km');
+		$datos['fecha']=$this->input->post('fecha');
+		$datos['hora'] = $this->input->post('hora');
+		$datos['notas'] = $this->input->post('notas');
+		$datos['responsable'] = $this->input->post('responsable');
+		$datos['estado']='Pendiente';
+		$datos['fec']=$this->input->post('fec');
+		
+		
+		$this->Cita->crear_cita($datos);
+		
+		
 	}
 
 }

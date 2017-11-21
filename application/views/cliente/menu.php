@@ -65,7 +65,9 @@
 					}
 				},
 				dayClick: function(date,jsEvent,view){
+					
 					$('#asignar').modal();
+					
 				}
 			});
 		});
@@ -119,6 +121,7 @@
       </div>
       <div class="modal-body">
 		<form action="Op_Cliente/asignar" id="registrar" method="post">
+				<div id="fecha_inicial"></div>
 				<input type="text" class="form-control" id="nit" name="nit" value="<?php  foreach($nit as $usuario){ echo $usuario['Nit'];  };  ?>" readonly></br>
 				<select class="form-control" id="sede" name="sede">
 					<?php foreach($sede as $dato){ ?>
@@ -130,15 +133,16 @@
 					<option value="<?php echo $dato['Placa'];?>">  <?php echo $dato['Placa'];?>  </option>
 					<?php }; ?>
 				</select></br>
-				<input  type="text" class="form-control" id="km" placeholder="Ingrese el kilometraje"></br>
-				<input  type="time" class="form-control" id="hora"></br>
-				<select class="form-control" id="operacion">
+				<input  type="text" class="form-control" id="km" name="km" placeholder="Ingrese el kilometraje"></br>
+				<input type="date" class="form-control" id="fecha" name=fecha></br>
+				<input  type="time" class="form-control" id="hora" name="hora"></br>
+				<select class="form-control" id="operacion" name="operacion">
 					<?php foreach($conjunto as $op){ ?>
 					<option value="<?php echo $op['Id_operacion'];?>">  <?php echo $op['Descripcion'];?> </option>
 					<?php }; ?>
 				</select></br>
-				<textarea maxlength="200" class="form-control" placeholder="Adicional" id="notas"></textarea></br>
-				<input  type="text" class="form-control" id="responsable"placeholder="Persona Responsable del Vehiculo">
+				<textarea maxlength="200" class="form-control" placeholder="Adicional" id="notas" name="notas"></textarea></br>
+				<input  type="text" class="form-control" id="responsable"placeholder="Persona Responsable del Vehiculo" name="responsable">
 
 
 
