@@ -73,7 +73,7 @@ class Cita extends CI_Model {
 	public function geteventos($dato){
 		$this->db->select('Id_cita id,Vehiculos_placa title,Fecha_inicial start,Fecha_final end');
 		$this->db->where('Terceros_Nit',$dato);
-		$this->db->where('Estado',"Asignado");
+		$this->db->where('Estado',"Pendiente");
 		$this->db->from('cita');
 		return $this->db->get()->result();
 	}
